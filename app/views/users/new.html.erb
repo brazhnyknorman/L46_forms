@@ -18,6 +18,7 @@
 </form>
 -->
 
+<!--
 <%= form_tag("/users", method: "post") do %>
   <%= label_tag(:user_username, "Username: ")%>
   <%= text_field(:user, :username)%><br>
@@ -28,3 +29,30 @@
   <%= submit_tag("Submit") %>
 
 <% end %>
+-->
+
+<%= form_with model: @user do |form| %>
+  <%= form.label :username, "Username: "%>
+  <%= form.text_field :username, placeholder: "Enter your username", value: "Bobby123"%> <br><br>
+
+  <%= form.label :email, "Email: "%>
+  <%= form.text_field :email, placeholder: "Enter your email"%> <br><br>
+
+  <%= form.label :password, "Password: "%>
+  <%= form.text_field :password, placeholder: "Enter your password"%> <br><br>
+
+  <%= form.submit "Create"%>
+<% end %>
+
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
